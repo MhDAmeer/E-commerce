@@ -1,0 +1,42 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}Add Review for {{ product.name }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Add a Review for {{ product.name }}</h1>
+
+    <div class="card shadow-sm" style="max-width: 600px;">
+        <div class="card-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="{{ form.reviewer_name.id_for_label }}" class="form-label">Your Name</label>
+                    {{ form.reviewer_name }}
+                    {% if form.reviewer_name.errors %}
+                        <div class="text-danger small">{{ form.reviewer_name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.rating.id_for_label }}" class="form-label">Rating</label>
+                    {{ form.rating }}
+                    {% if form.rating.errors %}
+                        <div class="text-danger small">{{ form.rating.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.comment.id_for_label }}" class="form-label">Comment</label>
+                    {{ form.comment }}
+                    {% if form.comment.errors %}
+                        <div class="text-danger small">{{ form.comment.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit Review</button>
+                <a href="{% url 'review_list' product.id %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
